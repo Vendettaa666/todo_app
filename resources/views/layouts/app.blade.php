@@ -7,19 +7,15 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <nav class="mb-6">
-            <a href="{{ route('dashboard') }}" class="mr-4 text-blue-600">Dashboard</a>
-            <a href="{{ route('tasks.create') }}" class="mr-4 text-blue-600">+ Tambah Tugas</a>
-            <a href="{{ route('categories') }}" class="mr-4 text-blue-600">Kelola Kategori</a>
-            <form method="POST" action="{{ route('logout') }}" class="inline">
-                @csrf
-                <button type="submit" class="text-red-600">Logout</button>
-            </form>
-        </nav>
-
-        {{ $slot }}
+<body class="bg-gray-900">
+    <livewire:components.navbar>
+    <div class="flex">
+        <aside class="bg-gray-800 text-white w-64 min-h-screen p-6 shadow-md">
+            <livewire:components.sidebar>
+        </aside>
+        <main class="flex-1 container mx-auto px-4 py-8">
+            @yield('content')
+        </main>
     </div>
 
     @livewireScripts

@@ -13,7 +13,14 @@ use App\Models\Task;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Jika pakai Breeze, biarkan route auth tetap ada
+require __DIR__.'/auth.php';
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -42,14 +49,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('logout');
 });
 
-// Jika pakai Breeze, biarkan route auth tetap ada
-require __DIR__.'/auth.php';
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('dashboard');
-    }
-    return redirect()->route('login');
-});
+
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');

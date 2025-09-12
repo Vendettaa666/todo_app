@@ -16,6 +16,6 @@ class TaskList extends Component
 
         return view('livewire.task-list', [
             'tasks' => $tasks
-        ])->extends('layouts.app');
+        ]);
     }
 }
