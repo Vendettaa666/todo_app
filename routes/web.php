@@ -17,7 +17,7 @@ use App\Models\Task;
 require __DIR__.'/auth.php';
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect()->route('dasahboard');
+        return redirect()->route('dashboard');
     }
     return redirect()->route('login');
 });
