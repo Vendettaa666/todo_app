@@ -17,15 +17,20 @@ use App\Models\Task;
 require __DIR__.'/auth.php';
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect()->route('dashboard');
+        return redirect()->route('dasahboard');
     }
     return redirect()->route('login');
 });
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/tasks.index', function () {
+        return view('tasks.index');
+    })->name('tasks.index');
 
     Route::view('/tasks/create', 'tasks.create')->name('tasks.create');
 
