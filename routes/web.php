@@ -46,6 +46,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::view('/categories', 'categories.index')->name('categories');
 
+    Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
+
+
     Route::post('/logout', function () {
         \Illuminate\Support\Facades\Auth::guard('web')->logout();
         \Illuminate\Support\Facades\Session::invalidate();

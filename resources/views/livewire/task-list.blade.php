@@ -1,6 +1,6 @@
 <div class="py-8">
     <div class="flex items-center justify-between mb-4">
-        <h1 class="text-2xl font-semibold">Tugas Saya</h1>
+        <h1 class="text-white text-2xl font-semibold">Tugas Saya</h1>
         <a href="{{ route('tasks.create') }}" class="px-3 py-2 rounded bg-indigo-600 text-white">+ Tambah Tugas Baru</a>
     </div>
 
