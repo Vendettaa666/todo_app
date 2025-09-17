@@ -30,6 +30,6 @@ class TaskDetail extends Component
 
     public function render()
     {
-        return view('livewire.task-detail')->extends('layouts.app');
+        return view('livewire.task-list.task-detail')->extends('layouts.app');
     }
 }

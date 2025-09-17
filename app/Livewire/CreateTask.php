@@ -75,6 +75,6 @@ class CreateTask extends Component
     public function render()
     {
         $categories = Category::where('user_id', auth()->id())->orderBy('name')->get();
-        return view('livewire.create-task', compact('categories'))->extends('layouts.app');
+        return view('livewire.task-list.create-task', compact('categories'))->extends('layouts.app');
     }
 }

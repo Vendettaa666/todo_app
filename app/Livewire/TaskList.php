@@ -14,7 +14,7 @@ class TaskList extends Component
                     ->latest()
                     ->get();
 
-        return view('livewire.task-list', [
+        return view('livewire.task-list.task-list', [
             'tasks' => $tasks
         ]);
     }

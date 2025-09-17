@@ -57,7 +57,7 @@ class EditTask extends Component
     public function render()
     {
         $categories = Category::where('user_id', auth()->id())->orderBy('name')->get();
-        return view('livewire.edit-task', compact('categories'))->extends('layouts.app');
+        return view('livewire.task-list.edit-task', compact('categories'))->extends('layouts.app');
     }
 }
 
