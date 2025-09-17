@@ -7,7 +7,7 @@
             <i class="fa-solid fa-list-check mr-2"></i> Daftar Tugas
         </a>
 
-        <a href="{{ route('tasks.index') }}" class="block p-2 rounded-md hover:bg-gray-700 transition duration-300">
+        <a href="{{ route('stickywall.index') }}" class="block p-2 rounded-md hover:bg-gray-700 transition duration-300">
             <i class="fa-solid fa-list-check mr-2"></i> Sticky Wall
         </a>
 
