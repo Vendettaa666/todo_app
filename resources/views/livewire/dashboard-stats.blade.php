@@ -1,6 +1,6 @@
 <div class="p-6">
     <div class="mb-6">
-        <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <h1 class="text-3xl font-bold text-white">Dashboard</h1>
         <p class="text-gray-600 mt-2">Ringkasan tugas dan produktivitas Anda</p>
     </div>
 
