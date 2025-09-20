@@ -38,6 +38,6 @@ class CategoryManager extends Component
     public function render()
     {
         $categories = Category::where('user_id', auth()->id())->orderBy('name')->get();
-        return view('livewire.category-manager', compact('categories'))->extends('layouts.app');
+        return view('livewire.category.category-manager', compact('categories'))->extends('layouts.app');
     }
 }

@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    <livewire:category-manager />
+    <livewire:category.category-manager />
 @endsection

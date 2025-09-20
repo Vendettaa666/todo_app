@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\StickyWall;
+use App\Livewire\CategoryManager;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
@@ -45,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
         return view('tasks.edit', compact('task'));
     })->name('tasks.edit');
 
-    Route::view('/categories', 'categories.index')->name('categories');
+    Route::get('/categories', CategoryManager::class)->name('categories');
 
     Route::get('/stickywall', StickyWall::class)->name('stickywall.index');
 
