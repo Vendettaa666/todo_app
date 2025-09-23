@@ -18,3 +18,6 @@ cmds = [
 
 [start]
 cmd = "php artisan migrate --force && vendor/bin/heroku-php-apache2 public/"
+
+[variables]
+PHP_FPM_LISTEN_ADDRESS = "0.0.0.0:9000"

@@ -15,6 +15,24 @@ use App\Models\Task;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Health check route for Railway deployment
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'timestamp' => now(),
+        'service' => 'todo-app'
+    ]);
+});
+
+// Welcome route for health check fallback
+Route::get('/welcome', function () {
+    return response()->json([
+        'message' => 'Todo App is running',
+        'status' => 'healthy'
+    ]);
+});
+
 // Jika pakai Breeze, biarkan route auth tetap ada
 require __DIR__.'/auth.php';
 Route::get('/', function () {
