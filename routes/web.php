@@ -23,7 +23,7 @@ Route::get('/health', function () {
         'timestamp' => now(),
         'service' => 'todo-app'
     ]);
-});
+})->name('health');
 
 // Welcome route for health check fallback
 Route::get('/welcome', function () {

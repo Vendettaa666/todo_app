@@ -17,7 +17,8 @@ cmds = [
 ]
 
 [start]
-cmd = "php artisan migrate --force && vendor/bin/heroku-php-apache2 public/"
+cmd = "chmod +x start-production.sh && ./start-production.sh"
 
 [variables]
 PHP_FPM_LISTEN_ADDRESS = "0.0.0.0:9000"
+PORT = 80
