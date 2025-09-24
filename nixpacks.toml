@@ -1,24 +1,19 @@
 [phases.setup]
 cmds = [
     "apt-get update",
-    "apt-get install -y libpq-dev postgresql-client"
+    "apt-get install -y libpq-dev postgresql-client nodejs npm"
 ]
 
 [phases.install]
 cmds = [
-    "composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist"
+    "composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist",
+    "npm ci"
 ]
 
 [phases.build]
 cmds = [
+    "npm run build",
     "php artisan config:cache",
     "php artisan route:cache",
     "php artisan view:cache"
 ]
-
-[start]
-cmd = "chmod +x start-production.sh && ./start-production.sh"
-
-[variables]
-PHP_FPM_LISTEN_ADDRESS = "0.0.0.0:9000"
-PORT = 80

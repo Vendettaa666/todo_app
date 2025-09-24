@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "chmod +x start-production.sh && ./start-production.sh",
+    "startCommand": "chmod +x start-simple.sh && ./start-simple.sh",
     "restartPolicyType": "ON_FAILURE",
     "healthcheckPath": "/health",
     "healthcheckTimeout": 300,

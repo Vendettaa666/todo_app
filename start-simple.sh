@@ -1,14 +1,20 @@
 #!/bin/bash
 
-echo "=== Simple Startup ==="
+# Exit on any error
+set -e
 
-# Set port
-export PORT=${PORT:-80}
+echo "Starting Laravel Todo App deployment..."
 
-# Run migrations with timeout
-echo "Running migrations..."
-timeout 60 php artisan migrate --force
+# Run database migrations
+echo "Running database migrations..."
+php artisan migrate --force
 
-# Start server
-echo "Starting server..."
-vendor/bin/heroku-php-apache2 public/
+# Clear and cache config
+echo "Caching configuration..."
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Start the web server
+echo "Starting web server..."
+exec vendor/bin/heroku-php-apache2 public/
