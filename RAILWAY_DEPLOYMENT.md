@@ -83,8 +83,15 @@ Jika deployment gagal:
 
 Railway akan menjalankan:
 1. Install PHP dependencies (`composer install`)
-2. Install Node.js dependencies (`npm ci`)
+2. Clean npm cache dan install Node.js dependencies (`npm install --no-optional --legacy-peer-deps`)
 3. Build frontend assets (`npm run build`)
 4. Cache Laravel config, routes, dan views
 5. Run database migrations
 6. Start web server
+
+### 7. Troubleshooting NPM Issues
+
+Jika masih ada masalah dengan npm dependencies:
+1. File `.npmrc` sudah dikonfigurasi untuk menggunakan legacy peer deps
+2. Build process akan clean cache dan regenerate package-lock.json
+3. Menggunakan `--no-optional` dan `--legacy-peer-deps` untuk kompatibilitas
