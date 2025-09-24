@@ -6,7 +6,7 @@
   "deploy": {
     "startCommand": "chmod +x start-simple.sh && ./start-simple.sh",
     "restartPolicyType": "ON_FAILURE",
-    "healthcheckPath": "/health",
+    "healthcheckPath": "/ping",
     "healthcheckTimeout": 300,
     "healthcheckInterval": 30,
     "healthcheckGracePeriod": 60

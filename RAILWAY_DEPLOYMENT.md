@@ -73,11 +73,24 @@ Aplikasi memiliki health check endpoint di `/health` yang akan digunakan Railway
 
 ### 5. Troubleshooting
 
-Jika deployment gagal:
-1. Check logs di Railway dashboard
-2. Pastikan semua environment variables sudah diset
-3. Pastikan database connection berfungsi
-4. Check apakah `APP_KEY` sudah diset dengan benar
+#### Health Check Failed
+Jika health check gagal:
+1. **Gunakan `/ping` endpoint** - Railway sekarang menggunakan `/ping` untuk health check
+2. **Check startup logs** - Lihat logs di Railway dashboard untuk error startup
+3. **Database connection** - Pastikan `DATABASE_URL` sudah diset dengan benar
+4. **APP_KEY** - Pastikan `APP_KEY` sudah diset dengan benar
+
+#### Build Failed
+Jika build gagal:
+1. **NPM issues** - Build process sekarang non-blocking untuk npm
+2. **PHP dependencies** - Check composer install logs
+3. **Environment variables** - Pastikan semua required variables sudah diset
+
+#### Startup Failed
+Jika startup gagal:
+1. **Check logs** - Lihat startup script logs
+2. **Database migrations** - Migrations sekarang non-blocking
+3. **Web server** - Check Apache/PHP configuration
 
 ### 6. Build Process
 

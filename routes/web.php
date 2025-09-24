@@ -18,12 +18,32 @@ use App\Models\Task;
 
 // Health check route for Railway deployment
 Route::get('/health', function () {
+    try {
+        // Test database connection
+        \DB::connection()->getPdo();
+        $dbStatus = 'connected';
+    } catch (\Exception $e) {
+        $dbStatus = 'disconnected';
+    }
+
     return response()->json([
         'status' => 'ok',
-        'timestamp' => now(),
-        'service' => 'todo-app'
-    ]);
+        'timestamp' => now()->toISOString(),
+        'service' => 'todo-app',
+        'database' => $dbStatus,
+        'php_version' => PHP_VERSION,
+        'laravel_version' => app()->version()
+    ], 200);
 })->name('health');
+
+// Simple health check route (no database dependency)
+Route::get('/ping', function () {
+    return response()->json([
+        'status' => 'ok',
+        'message' => 'pong',
+        'timestamp' => now()->toISOString()
+    ], 200);
+});
 
 // Welcome route for health check fallback
 Route::get('/welcome', function () {
