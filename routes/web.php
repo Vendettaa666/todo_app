@@ -5,6 +5,8 @@ use App\Livewire\CategoryManager;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
+use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,11 +18,23 @@ use App\Models\Task;
 |
 */
 
+// Route untuk debugging Railway
+Route::get('/railway-debug', function () {
+    return response()->json([
+        'status' => 'ok',
+        'message' => 'Application is running',
+        'timestamp' => now()->toISOString(),
+        'environment' => app()->environment(),
+        'debug_mode' => config('app.debug'),
+        'url' => config('app.url'),
+    ]);
+});
+
 // Health check endpoint untuk Railway
 Route::get('/ping', function () {
     try {
         // Test database connection
-        \DB::connection()->getPdo();
+        DB::connection()->getPdo();
 
         return response()->json([
             'status' => 'ok',
@@ -48,23 +62,47 @@ Route::get('/health', function () {
     ], 200);
 });
 
+// Test database connection
+Route::get('/test-db', function () {
+    try {
+        DB::connection()->getPdo();
+        return "Database connection: OK";
+    } catch (\Exception $e) {
+        return "Database connection: FAILED - " . $e->getMessage();
+    }
+});
+
+// Test environment variables
+Route::get('/test-env', function () {
+    return [
+        'APP_ENV' => env('APP_ENV'),
+        'APP_DEBUG' => env('APP_DEBUG'),
+        'DB_CONNECTION' => env('DB_CONNECTION'),
+        'DB_HOST' => env('DB_HOST'),
+        'DB_PORT' => env('DB_PORT'),
+        'DB_DATABASE' => env('DB_DATABASE'),
+        'APP_URL' => env('APP_URL'),
+    ];
+});
 
 // Jika pakai Breeze, biarkan route auth tetap ada
 require __DIR__.'/auth.php';
+
+// Route utama
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
-    return redirect()->route('login');
+    return view('welcome');
 });
 
 Route::middleware(['auth'])->group(function () {
-
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/tasks.index', function () {
+    // Perbaikan route tasks
+    Route::get('/tasks', function () {
         return view('tasks.index');
     })->name('tasks.index');
 
@@ -84,26 +122,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/stickywall', StickyWall::class)->name('stickywall.index');
 
-    Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
+    Route::view('profile', 'profile')->name('profile');
 
     Route::post('/logout', function () {
-        \Illuminate\Support\Facades\Auth::guard('web')->logout();
-        \Illuminate\Support\Facades\Session::invalidate();
-        \Illuminate\Support\Facades\Session::regenerateToken();
+        Auth::guard('web')->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
         return redirect('/');
     })->name('logout');
 });
-
-
-// Route::view('dashboard', 'dashboard')
-//     ->middleware(['auth', 'verified'])
-//     ->name('dashboard');
-
-// Route::view('profile', 'profile')
-//     ->middleware(['auth'])
-//     ->name('profile');
-
-// duplicate require removed above

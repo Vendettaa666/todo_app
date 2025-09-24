@@ -5,7 +5,7 @@
     },
     "deploy": {
       "restartPolicyType": "ON_FAILURE",
-      "healthcheckPath": "/ping",
+      "healthcheckPath": "/health",
       "healthcheckTimeout": 300,
       "healthcheckInterval": 30,
       "healthcheckGracePeriod": 120
