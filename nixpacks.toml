@@ -12,11 +12,7 @@ cmds = [
 
 [phases.build]
 cmds = [
-    "php artisan storage:link",
-    "php artisan config:clear",
-    "php artisan route:clear",
-    "php artisan view:clear",
-    "php artisan migrate --force"
+    "./railway-build.sh"
 ]
 
 [start]

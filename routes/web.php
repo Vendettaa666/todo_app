@@ -72,19 +72,29 @@ Route::get('/test-db', function () {
     }
 });
 
-// Test environment variables
-Route::get('/test-env', function () {
+// Route untuk debugging environment variables
+Route::get('/debug-env', function () {
     return [
-        'APP_ENV' => env('APP_ENV'),
-        'APP_DEBUG' => env('APP_DEBUG'),
-        'DB_CONNECTION' => env('DB_CONNECTION'),
-        'DB_HOST' => env('DB_HOST'),
-        'DB_PORT' => env('DB_PORT'),
-        'DB_DATABASE' => env('DB_DATABASE'),
-        'APP_URL' => env('APP_URL'),
+        'env_file_exists' => file_exists(base_path('.env')),
+        'env_readable' => is_readable(base_path('.env')),
+        'db_connection' => env('DB_CONNECTION'),
+        'db_host' => env('DB_HOST'),
+        'db_port' => env('DB_PORT'),
+        'db_database' => env('DB_DATABASE'),
+        'db_username' => env('DB_USERNAME'),
+        'db_password' => env('DB_PASSWORD') ? '***' : null,
+        'database_url' => env('DATABASE_URL'),
+        'all_env' => $_ENV,
     ];
 });
 
+// Route untuk debugging config
+Route::get('/debug-config', function () {
+    return [
+        'db_default' => config('database.default'),
+        'db_connections' => config('database.connections'),
+    ];
+});
 // Jika pakai Breeze, biarkan route auth tetap ada
 require __DIR__.'/auth.php';
 
