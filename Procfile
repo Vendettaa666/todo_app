@@ -1,3 +1,2 @@
-web: chmod +x start-simple.sh && ./start-simple.sh
-release: echo "Database migrations will run during web startup"
-worker: php artisan queue:work --verbose --tries=3 --timeout=90
+web: php artisan serve --host=0.0.0.0 --port=$PORT
+release: php artisan migrate --force

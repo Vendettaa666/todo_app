@@ -16,42 +16,38 @@ use App\Models\Task;
 |
 */
 
-// Health check route for Railway deployment
-Route::get('/health', function () {
+// Health check endpoint untuk Railway
+Route::get('/ping', function () {
     try {
         // Test database connection
         \DB::connection()->getPdo();
-        $dbStatus = 'connected';
+
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Application is healthy',
+            'timestamp' => now()->toISOString(),
+            'database' => 'connected'
+        ], 200);
+
     } catch (\Exception $e) {
-        $dbStatus = 'disconnected';
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Database connection failed',
+            'error' => $e->getMessage(),
+            'timestamp' => now()->toISOString()
+        ], 503);
     }
+});
 
+// Health check sederhana tanpa database
+Route::get('/health', function () {
     return response()->json([
         'status' => 'ok',
-        'timestamp' => now()->toISOString(),
-        'service' => 'todo-app',
-        'database' => $dbStatus,
-        'php_version' => PHP_VERSION,
-        'laravel_version' => app()->version()
-    ], 200);
-})->name('health');
-
-// Simple health check route (no database dependency)
-Route::get('/ping', function () {
-    return response()->json([
-        'status' => 'ok',
-        'message' => 'pong',
+        'message' => 'Application is running',
         'timestamp' => now()->toISOString()
     ], 200);
 });
 
-// Welcome route for health check fallback
-Route::get('/welcome', function () {
-    return response()->json([
-        'message' => 'Todo App is running',
-        'status' => 'healthy'
-    ]);
-});
 
 // Jika pakai Breeze, biarkan route auth tetap ada
 require __DIR__.'/auth.php';
